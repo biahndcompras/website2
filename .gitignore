@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# descargas de marca (archivos comprimidos, no se sirven)
+*.zip

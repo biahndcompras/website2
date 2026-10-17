@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" role="img" aria-label="Logo Café Oro">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C8963E"/>
+      <stop offset="100%" stop-color="#C8963ECC"/>
+    </linearGradient>
+  </defs>
+  <circle cx="100" cy="100" r="96" fill="url(#g)"/>
+  <circle cx="100" cy="100" r="96" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3"/>
+  <circle cx="100" cy="100" r="78" fill="none" stroke="#ffffff" stroke-opacity="0.22" stroke-width="2"/>
+  <path d="M72 74c-10 16-10 36 0 52M100 62c-14 22-14 54 0 76M128 74c-10 16-10 36 0 52"
+        fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="5" stroke-linecap="round"/>
+  <text x="100" y="118" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif"
+        font-size="58" font-weight="700" fill="#ffffff">O</text>
+  <text x="100" y="152" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif"
+        font-size="17" font-weight="600" letter-spacing="2" fill="#ffffff" fill-opacity="0.75">1972</text>
+</svg>

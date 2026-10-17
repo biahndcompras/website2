@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Laboratorio Sensorial">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#4A2C12"/>
+    </linearGradient>
+    <pattern id="p" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.5" fill="#ffffff" fill-opacity="0.14"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <rect width="1200" height="800" fill="url(#p)"/>
+  <g transform="translate(600 340)" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="10" stroke-linecap="round"><path d="M-30-70h60v50l40 90c10 24-8 50-34 50h-72c-26 0-44-26-34-50l40-90z"/><path d="M-48 30h96"/></g>
+  <text x="600" y="500" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif" font-size="46" font-weight="600" fill="#ffffff">Laboratorio Sensorial</text>
+  <text x="600" y="556" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif" font-size="26" fill="#ffffff" fill-opacity="0.75">Catas formales y Q-Grader</text>
+  <text x="600" y="740" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif" font-size="18" letter-spacing="3" fill="#ffffff" fill-opacity="0.5">IMAGEN PROVISIONAL · bia Honduras</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="800" height="900" role="img" aria-label="Planta San Pedro Sula">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1D4ED8"/><stop offset="100%" stop-color="#0B1220"/>
+    </linearGradient>
+    <pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.5" fill="#ffffff" fill-opacity="0.13"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="900" fill="url(#g)"/>
+  <rect width="800" height="900" fill="url(#p)"/>
+  <g transform="translate(400 400)" fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M-110-40h220l-24 160a50 50 0 01-49 42H-37a50 50 0 01-49-42L-110-40z"/><path d="M-130-40h260M-40 162v30M40 162v30"/><circle cx="0" cy="-110" r="26"/></g>
+  <text x="400" y="530" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif" font-size="44" font-weight="600" fill="#ffffff">Planta San Pedro Sula</text>
+  <text x="400" y="578" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif" font-size="24" fill="#ffffff" fill-opacity="0.78">Producción, tostado y empaque</text>
+  <text x="400" y="830" text-anchor="middle" font-family="Outfit, Helvetica, Arial, sans-serif" font-size="16" letter-spacing="3" fill="#ffffff" fill-opacity="0.45">IMAGEN PROVISIONAL · bia Honduras</text>
+</svg>
