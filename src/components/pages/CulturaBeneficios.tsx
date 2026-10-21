@@ -166,7 +166,7 @@ function Hero() {
             <div className="mx-auto max-w-4xl text-center">
                 <Reveal>
                     <p className="kicker mb-5 justify-center">{t("cultura.kicker")}</p>
-                    <h1 className="mb-6 text-4xl font-medium leading-[1.05] tracking-tight xs:text-5xl sm:text-6xl lg:text-7xl">
+                    <h1 className="hero-title mb-6">
                         {t("cultura.h1a")}
                         <br />
                         <span className="font-serif italic text-brand">{t("cultura.h1b")}</span>

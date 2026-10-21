@@ -24,8 +24,8 @@ export const COPY = {
         "a11y.cerrarMenu": "Cerrar menú",
 
         "hero.kicker": "GRUPO MARIPOSA · HONDURAS",
-        "hero.titulo": "Cada taza empieza",
-        "hero.tituloLine2": "con alguien",
+        "hero.titulo": "Cada taza de café",
+        "hero.tituloLine2": "empieza con alguien",
         "hero.tituloItalic": "como tú",
         "hero.subtitulo":
             "Detrás de cada taza de Café Maya, El Indio, Oro y Medalla hay un equipo en San Pedro Sula y Tegucigalpa que cuida el proceso de principio a fin. Este es su lugar.",
@@ -320,8 +320,8 @@ export const COPY = {
         "a11y.cerrarMenu": "Close menu",
 
         "hero.kicker": "GRUPO MARIPOSA · HONDURAS",
-        "hero.titulo": "Every cup begins",
-        "hero.tituloLine2": "with someone",
+        "hero.titulo": "Every cup of coffee",
+        "hero.tituloLine2": "begins with someone",
         "hero.tituloItalic": "like you",
         "hero.subtitulo":
             "Behind every cup of Maya, El Indio, Oro and Medalla coffee there is a team in San Pedro Sula and Tegucigalpa caring for the process from start to finish. This is your place.",

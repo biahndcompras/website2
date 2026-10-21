@@ -173,7 +173,7 @@ function Hero() {
             <div className="shell grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
                 <Reveal className="lg:col-span-7">
                     <p className="kicker mb-5">{t("nav.reclutamiento")}</p>
-                    <h1 className="mb-6 text-4xl font-medium leading-[1.05] tracking-tight xs:text-5xl sm:text-6xl lg:text-7xl">
+                    <h1 className="hero-title mb-6">
                         {t("recl.h1a")}
                         <br />
                         <span className="font-serif italic text-brand">{t("recl.h1b")}</span>

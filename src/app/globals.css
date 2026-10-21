@@ -140,6 +140,32 @@
         transform-origin: left center;
     }
 
+    /* Titular del hero.
+       Móvil: baja solo lo necesario para que "empieza con alguien" quepa en
+       una línea (a 3.75rem esa frase mide 505px y solo hay 358 disponibles);
+       el tope sigue siendo 3.75rem en pantallas algo más anchas.
+       Tableta y escritorio: 4.25rem. En escritorio el hero va a dos columnas,
+       así que entre 1024 y 1280px el tamaño acompaña al ancho de la columna
+       para no partir el titular. */
+    .hero-title {
+        font-size: clamp(2rem, 10.5vw, 3.75rem);
+        font-weight: 500;
+        line-height: 1.04;
+        letter-spacing: -0.03em;
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 4.25rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .hero-title {
+            font-size: clamp(3.25rem, 5.3vw, 4.25rem);
+        }
+    }
+
     /* Cifras con ancho fijo para que no bailen al contar */
     .stat-value {
         font-variant-numeric: tabular-nums;

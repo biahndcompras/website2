@@ -59,7 +59,7 @@ export function BrandHero({ brand }: { brand: Brand }) {
                         </div>
                     </div>
 
-                    <h1 className="mb-6 text-4xl font-medium leading-[1.04] tracking-[-0.03em] xs:text-5xl sm:text-6xl">
+                    <h1 className="hero-title mb-6">
                         {brand.name}
                     </h1>
 

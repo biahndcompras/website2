@@ -84,7 +84,7 @@ function Hero() {
             <div className="shell text-center">
                 <Reveal>
                     <p className="kicker mb-5 justify-center">{t("nav.contacto")}</p>
-                    <h1 className="mb-6 text-4xl font-medium leading-[1.05] tracking-tight xs:text-5xl sm:text-6xl lg:text-7xl">
+                    <h1 className="hero-title mb-6">
                         {t("contacto.h1a")}
                         <span className="font-serif italic text-brand">
                             {" "}

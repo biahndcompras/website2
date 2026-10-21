@@ -52,11 +52,13 @@ export function Hero() {
                     <Reveal from="left">
                         <MariposaPill className="mb-7" />
 
-                        <h1 className="mb-6 text-[2.25rem] font-medium leading-[1.04] tracking-[-0.03em] xs:text-[2.75rem] sm:text-[3rem] lg:text-[3.25rem]">
+                        <h1 className="hero-title mb-6">
                             <span className="block">{t("hero.titulo")}</span>
                             <span className="block">
-                                {t("hero.tituloLine2")}{" "}
-                                <span className="font-serif italic text-brand">
+                                <span className="whitespace-nowrap">
+                                    {t("hero.tituloLine2")}
+                                </span>{" "}
+                                <span className="block font-serif italic text-brand md:inline">
                                     {t("hero.tituloItalic")}
                                 </span>
                             </span>
