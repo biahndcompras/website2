@@ -2,23 +2,72 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 import { useLang } from "@/components/layout/LanguageProvider";
 import { MariposaPill } from "@/components/ui/MariposaPill";
 import { BRANDS } from "@/data/brands";
 
 /**
- * Ruta del video de fondo. Mientras esté vacía se usa la fotografía con un
- * zoom muy lento; al añadir el archivo (p. ej. "/hero-bia.mp4") el video entra
- * solo, con la foto como póster para no penalizar el LCP.
+ * Video de fondo en dos resoluciones: 720p para móvil y 1080p de tableta en
+ * adelante. El póster se pinta siempre debajo, así el primer pintado no
+ * depende del video (LCP estable).
  */
-const HERO_VIDEO = "";
+const VIDEO_ESCRITORIO = "/hero-bia-1080.mp4";
+const VIDEO_MOVIL = "/hero-bia-720.mp4";
+
+/** El metraje original va a 24 fps; a 0.55x se lee como cámara lenta. */
+const VELOCIDAD = 0.55;
 
 /** Copias de la cinta de marcas: cubren pantallas anchas sin dejar huecos. */
 const MARCAS_REPETIDAS = 6;
 
 export function HeroVideo() {
   const { t } = useLang();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [listo, setListo] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // La fuente se elige aquí para no descargar 1080p en un teléfono.
+    video.src = window.matchMedia("(max-width: 767px)").matches
+      ? VIDEO_MOVIL
+      : VIDEO_ESCRITORIO;
+    video.load();
+
+    video.playbackRate = VELOCIDAD;
+
+    const ahorroDatos =
+      (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+        ?.saveData === true;
+    const movimientoReducido = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    // Con movimiento reducido o ahorro de datos no se reproduce: póster.
+    if (ahorroDatos || movimientoReducido) {
+      video.pause();
+      return;
+    }
+
+    video.play().catch(() => {
+      /* el navegador puede bloquear el autoplay: se queda el póster */
+    });
+
+    // Fuera de pantalla se pausa: no gasta batería ni datos de más.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(video);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -27,27 +76,29 @@ export function HeroVideo() {
     >
       {/* Fondo: video si existe, si no la fotografía con zoom lento */}
       <div className="absolute inset-0" aria-hidden="true">
-        {HERO_VIDEO ? (
-          <video
-            className="h-full w-full object-cover"
-            src={HERO_VIDEO}
-            poster="/hero-planta.jpg"
+        <Image
+          src="/hero-bia-poster.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <video
+            ref={videoRef}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+              listo ? "opacity-100" : "opacity-0"
+            }`}
+            poster="/hero-bia-poster.jpg"
             autoPlay
             muted
             loop
             playsInline
-            preload="none"
-          />
-        ) : (
-          <Image
-            src="/hero-planta.jpg"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover motion-safe:animate-[hero-zoom_28s_ease-in-out_infinite_alternate]"
-          />
-        )}
+            preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
+            onCanPlay={() => setListo(true)}
+        />
       </div>
 
       {/* Capas de contraste: viñeta + azul de marca hacia la cinta */}
