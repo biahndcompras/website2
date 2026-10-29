@@ -163,21 +163,15 @@ export function Timeline() {
                                     className="timeline-logo relative z-10 h-14 w-14 rounded-full object-cover xs:h-16 xs:w-16"
                                 />
                             ) : (
-                                <span className="timeline-logo timeline-logo--hoy relative z-10 grid h-14 w-14 place-items-center rounded-full bg-brand text-white xs:h-16 xs:w-16">
-                                    <svg
-                                        className="h-6 w-6 xs:h-7 xs:w-7"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="1.8"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M17 20h5v-2a3 3 0 00-5.36-1.86M17 20H7m10 0v-2c0-.66-.13-1.3-.36-1.86M7 20H2v-2a3 3 0 015.36-1.86M7 20v-2c0-.66.13-1.3.36-1.86m0 0a5.002 5.002 0 019.28 0"
-                                        />
-                                    </svg>
+                                <span className="timeline-logo timeline-logo--hoy relative z-10 grid h-14 w-14 place-items-center overflow-hidden rounded-full bg-white xs:h-16 xs:w-16">
+                                    <Image
+                                        src="/bia-main-white.png"
+                                        alt="bia Honduras"
+                                        width={3687}
+                                        height={927}
+                                        sizes="64px"
+                                        className="h-auto w-9 xs:w-10"
+                                    />
                                 </span>
                             )}
                         </div>

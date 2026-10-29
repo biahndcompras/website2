@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 import BrandExplorer from "@/components/sections/BrandExplorer";
+import { Momentos, NuestraHistoria, Pilares } from "@/components/sections/NosotrosSections";
+import { Prensa } from "@/components/sections/Prensa";
 import StatsBar, { type StatItem } from "@/components/sections/StatsBar";
 import { Timeline } from "@/components/sections/Timeline";
 import { Reveal, RevealGroup } from "@/components/motion/Reveal";
@@ -55,17 +57,23 @@ function Hero() {
                 </Reveal>
 
                 <Reveal from="right" className="lg:col-span-5">
-                    <div className="overflow-hidden rounded-[2rem] border border-gray-100 bg-brand-light shadow-2xl shadow-brand/10">
+                    <figure className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-100 shadow-2xl shadow-brand/10">
                         <Image
-                            src="/nosotros-planta.svg"
-                            alt="Planta de bia Honduras en San Pedro Sula"
-                            width={1200}
-                            height={800}
-                            unoptimized
-                            sizes="(min-width: 1024px) 42vw, 100vw"
-                            className="h-auto w-full"
+                            src="/cafeoro.jpg"
+                            alt={t("nosotros.heroImagenAlt")}
+                            fill
+                            priority
+                            sizes="(min-width: 1024px) 40vw, 100vw"
+                            className="object-cover"
                         />
-                    </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <figcaption className="absolute bottom-5 left-5 right-5 text-white">
+                            <div className="mb-1 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white/70">
+                                {t("hero.imagenEtiqueta")}
+                            </div>
+                            <div className="text-sm font-semibold">{t("hero.ubicacion")}</div>
+                        </figcaption>
+                    </figure>
                 </Reveal>
             </div>
         </section>
@@ -81,7 +89,7 @@ function Historia() {
             <div className="shell">
                 <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
                     <Reveal className="lg:col-span-5">
-                        <p className="kicker mb-4">{t("nosotros.historiaKicker")}</p>
+                        <p className="kicker mb-4">{t("nosotros.legadoKicker")}</p>
                         <h2 className="mb-6 text-3xl font-medium leading-tight xs:text-4xl md:text-5xl">
                             {t("nosotros.historiaH2a")}
                             <br />
@@ -140,46 +148,76 @@ const CENTROS: { img: string; label: string; key: CopyKey; desc: CopyKey }[] = [
 ];
 
 function Centros() {
-    const { t } = useLang();
+    const { t, pick } = useLang();
 
     return (
-        <section id="centros" className="bg-white px-4 py-20 xs:px-6 md:py-28">
+        <section id="centros" className="overflow-hidden bg-white px-4 py-20 xs:px-6 md:py-28">
             <div className="shell">
-                <Reveal className="mb-14 max-w-3xl">
-                    <p className="kicker mb-4">{t("operaciones.kicker")}</p>
-                    <h2 className="mb-5 text-3xl font-medium leading-tight xs:text-4xl md:text-5xl">
-                        {t("nosotros.centrosH2a")}
-                        <span className="font-serif italic text-brand">
-                            {" "}
-                            {t("nosotros.centrosH2b")}
-                        </span>
-                    </h2>
-                    <p className="text-lg text-gray-600">{t("operaciones.subtitulo")}</p>
-                </Reveal>
+                <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+                    <Reveal className="max-w-2xl">
+                        <p className="kicker mb-4">{t("operaciones.kicker")}</p>
+                        <h2 className="mb-5 text-3xl font-medium leading-tight xs:text-4xl md:text-5xl">
+                            {t("nosotros.centrosH2a")}
+                            <span className="font-serif italic text-brand">
+                                {" "}
+                                {t("nosotros.centrosH2b")}
+                            </span>
+                        </h2>
+                        <p className="text-lg text-gray-600">{t("operaciones.subtitulo")}</p>
+                    </Reveal>
 
+                    <Reveal from="right" className="shrink-0">
+                        <div className="flex items-baseline gap-3 rounded-2xl border border-gray-100 bg-surface px-5 py-3">
+                            <span className="text-4xl font-medium leading-none text-brand">12</span>
+                            <span className="max-w-[7rem] text-xs font-medium uppercase leading-tight tracking-wider text-gray-500">
+                                {pick({ es: "centros y plantas", en: "centers and plants" })}
+                            </span>
+                        </div>
+                    </Reveal>
+                </div>
+
+                {/* Collage diagonal: las tarjetas se solapan, se inclinan y al
+                    pasar el cursor la enfocada se endereza mientras las demás
+                    se atenúan. En móvil se apilan sin transformaciones. */}
                 <RevealGroup
-                    stagger={0.14}
-                    className="grid grid-cols-1 gap-6 md:grid-cols-3"
+                    stagger={0.12}
+                    className="group/collage grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-5"
                 >
-                    {CENTROS.map((c) => (
+                    {CENTROS.map((c, i) => (
                         <article
                             key={c.key}
-                            className="card-hover overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-sm"
+                            className={`group/card relative overflow-hidden rounded-[2rem] border border-gray-100 bg-white shadow-xl shadow-black/5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:z-30 hover:scale-[1.03] hover:shadow-2xl hover:shadow-brand/15 focus-within:z-30 md:rounded-[2.25rem] ${
+                                i === 0
+                                    ? "md:rotate-[-3deg] md:translate-y-5"
+                                    : i === 1
+                                      ? "md:z-20 md:scale-[1.02]"
+                                      : "md:rotate-[3deg] md:translate-y-5"
+                            } md:group-hover/collage:opacity-70 md:hover:!opacity-100 md:hover:rotate-0 md:hover:translate-y-0`}
                         >
-                            <div className="relative h-48 overflow-hidden bg-brand-light">
+                            {/* Número grande detrás */}
+                            <span
+                                className="pointer-events-none absolute right-5 top-3 z-10 text-6xl font-medium leading-none text-white/25 mix-blend-overlay"
+                                aria-hidden="true"
+                            >
+                                0{i + 1}
+                            </span>
+
+                            <div className="relative h-56 overflow-hidden">
                                 <Image
                                     src={c.img}
                                     alt=""
                                     fill
                                     unoptimized
                                     sizes="(min-width: 768px) 33vw, 100vw"
-                                    className="object-cover"
+                                    className="object-cover transition-transform duration-700 group-hover/card:scale-105"
                                 />
-                            </div>
-                            <div className="p-8">
-                                <span className="mb-3 block text-xs font-bold uppercase tracking-widest text-brand">
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+                                <span className="absolute bottom-4 left-5 text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-white/85">
                                     {c.label}
                                 </span>
+                            </div>
+
+                            <div className="p-7 xs:p-8">
                                 <h3 className="mb-2 text-xl font-medium">{t(c.key)}</h3>
                                 <p className="text-sm leading-relaxed text-gray-600">
                                     {t(c.desc)}
@@ -238,10 +276,14 @@ export default function Nosotros() {
     return (
         <>
             <Hero />
+            <NuestraHistoria />
             <StatsBar items={STATS} />
             <Historia />
             <BrandExplorer />
+            <Momentos />
+            <Pilares />
             <Centros />
+            <Prensa />
             <GrupoMariposa />
         </>
     );
