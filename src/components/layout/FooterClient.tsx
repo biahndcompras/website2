@@ -37,7 +37,7 @@ type FooterClientProps = {
 };
 
 export default function FooterClient({ year }: FooterClientProps) {
-    const { t } = useLang();
+    const { t, pick } = useLang();
 
     return (
         <>
@@ -216,6 +216,27 @@ export default function FooterClient({ year }: FooterClientProps) {
                     </div>
 
                     <div className="h-px bg-gray-100" />
+
+                    {/* Acceso a las variantes de portada (uso interno) */}
+                    <nav
+                        aria-label="Variantes de portada"
+                        className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-6 text-xs text-gray-400"
+                    >
+                        <span className="font-semibold uppercase tracking-wider text-gray-300">
+                            {pick({
+                                es: "Variantes del hero",
+                                en: "Hero variants",
+                            })}
+                        </span>
+                        <Link href="/" className="transition-colors hover:text-brand">
+                            {pick({ es: "Original", en: "Original" })}
+                        </Link>
+                        <Link href="/home3" className="transition-colors hover:text-brand">
+                            Home 3
+                        </Link>
+                    </nav>
+
+                    <div className="mt-6 h-px bg-gray-100" />
 
                     <div className="flex flex-col items-start justify-between gap-4 pt-6 text-xs text-gray-400 md:flex-row md:items-center">
                         <p>

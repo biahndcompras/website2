@@ -1,11 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { useLang } from "@/components/layout/LanguageProvider";
-import { MariposaPill } from "@/components/ui/MariposaPill";
 import { Reveal, RevealGroup } from "@/components/motion/Reveal";
 import type { CopyKey } from "@/data/copy";
 
@@ -13,20 +11,9 @@ import type { CopyKey } from "@/data/copy";
    Portada: secciones sin estado, solo estructura y animaciones.
    ------------------------------------------------------------------------- */
 
-function Arrow({ className = "h-4 w-4" }: { className?: string }) {
-    return (
-        <svg
-            className={className}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-        >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7-7 7" />
-        </svg>
-    );
-}
+/* -------------------------------------------------------------------------
+   Portada: secciones sin estado, solo estructura y animaciones.
+   ------------------------------------------------------------------------- */
 
 const STARS = Array.from({ length: 5 }, (_, i) => (
     <svg
@@ -38,110 +25,6 @@ const STARS = Array.from({ length: 5 }, (_, i) => (
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
     </svg>
 ));
-
-/* -------------------------------------------------------------------------
-   1. Hero
-   ------------------------------------------------------------------------- */
-export function Hero() {
-    const { t } = useLang();
-
-    return (
-        <section className="bg-dots px-4 pb-24 pt-36 xs:px-6 xs:pt-44 lg:pt-56 md:pb-32">
-            <div className="shell grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-14">
-                <div className="flex flex-col justify-center lg:col-span-6">
-                    <Reveal from="left">
-                        <MariposaPill className="mb-7" />
-
-                        <h1 className="hero-title mb-6">
-                            <span className="block">{t("hero.titulo")}</span>
-                            <span className="block">
-                                <span className="whitespace-nowrap">
-                                    {t("hero.tituloLine2")}
-                                </span>{" "}
-                                <span className="block font-serif italic text-brand md:inline">
-                                    {t("hero.tituloItalic")}
-                                </span>
-                            </span>
-                        </h1>
-
-                        <p className="mb-8 max-w-xl leading-relaxed text-base text-gray-600 xs:text-lg">
-                            {t("hero.subtitulo")}
-                        </p>
-
-                        <div className="mb-9 flex flex-col items-stretch gap-3 xs:flex-row xs:items-center">
-                            <Link
-                                href="/reclutamiento#vacantes"
-                                className="btn inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 text-base font-semibold text-white shadow-lg shadow-brand/25 hover:bg-brand-dark"
-                            >
-                                {t("hero.ctaVacantes")}
-                                <Arrow />
-                            </Link>
-                            <Link
-                                href="/nosotros"
-                                className="btn-ghost inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-4 text-base font-semibold text-dark hover:bg-gray-50"
-                            >
-                                {t("hero.ctaConocer")}
-                            </Link>
-                        </div>
-
-                        <div className="flex max-w-xl items-center gap-4 border-t border-gray-200/70 pt-6">
-                            <div className="flex -space-x-2.5 shrink-0">
-                                {["avatar-1", "avatar-2", "avatar-3"].map((a) => (
-                                    <Image
-                                        key={a}
-                                        src={`/${a}.webp`}
-                                        alt=""
-                                        width={36}
-                                        height={36}
-                                        className="h-9 w-9 rounded-full border-2 border-white object-cover"
-                                    />
-                                ))}
-                            </div>
-                            <div className="text-sm leading-tight">
-                                <div className="flex items-center gap-1.5">
-                                    <span className="flex text-amber-400" aria-hidden="true">
-                                        {STARS}
-                                    </span>
-                                    <span className="font-semibold text-dark">4.9</span>
-                                </div>
-                                <div className="text-xs text-gray-500">
-                                    {t("hero.pruebaSocial")}
-                                </div>
-                            </div>
-                        </div>
-                    </Reveal>
-                </div>
-
-                <Reveal from="right" className="lg:col-span-6">
-                    {/* La foto marca la altura del bloque: sin min-height fijo en
-                        escritorio, las dos columnas quedan a la misma altura. */}
-                    <figure className="group relative h-full min-h-[440px] overflow-hidden rounded-[2rem] shadow-xl shadow-brand/10 lg:min-h-[620px]">
-                        <Image
-                            src="/hero-planta.jpg"
-                            alt={t("hero.imagenAlt")}
-                            fill
-                            priority
-                            sizes="(min-width: 1024px) 50vw, 100vw"
-                            className="object-cover transition-transform duration-[900ms] group-hover:scale-[1.04]"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
-                        <figcaption className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-white">
-                            <div>
-                                <div className="mb-1 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white/70">
-                                    {t("hero.imagenEtiqueta")}
-                                </div>
-                                <div className="text-sm font-semibold">
-                                    {t("hero.ubicacion")}
-                                </div>
-                            </div>
-                            <span className="shrink-0 px-3">12 centros</span>
-                        </figcaption>
-                    </figure>
-                </Reveal>
-            </div>
-        </section>
-    );
-}
 
 /* -------------------------------------------------------------------------
    2. Cultura & Beneficios
@@ -424,7 +307,7 @@ export function Operations() {
 /* -------------------------------------------------------------------------
    4. Voces — marquesina horizontal
    ------------------------------------------------------------------------- */
-const VOICES = [
+export const VOICES = [
     {
         img: "avatar-4",
         name: "Karla Zelaya",

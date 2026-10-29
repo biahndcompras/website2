@@ -15,12 +15,23 @@ const MARIPOSA_SIZE = { width: 1477, height: 1461 };
  * Se usa en el encabezado de la portada y en el pie; es el mismo bloque en
  * ambos lugares para que la marca se lea igual arriba y abajo.
  */
-export function MariposaPill({ className = "" }: { className?: string }) {
+export function MariposaPill({
+    className = "",
+    variant = "default",
+}: {
+    className?: string;
+    /** `light` para fondos oscuros (hero con video). */
+    variant?: "default" | "light";
+}) {
     const { t } = useLang();
 
     return (
         <span
-            className={`inline-flex w-max items-center gap-2.5 rounded-full border border-gray-200 bg-surface py-2 pl-2.5 pr-4 ${className}`}
+            className={`inline-flex w-max items-center gap-2.5 rounded-full border py-2 pl-2.5 pr-4 ${
+                variant === "light"
+                    ? "border-white/25 bg-white/10 backdrop-blur-sm"
+                    : "border-gray-200 bg-surface"
+            } ${className}`}
         >
             <Image
                 src={MARIPOSA_LOGO}
@@ -31,9 +42,19 @@ export function MariposaPill({ className = "" }: { className?: string }) {
                 style={{ width: 26, height: 26 }}
                 className="shrink-0"
             />
-            <span className="text-xs text-gray-600">
+            <span
+                className={`text-xs ${
+                    variant === "light" ? "text-white/80" : "text-gray-600"
+                }`}
+            >
                 {t("footer.parteDe")}{" "}
-                <strong className="font-semibold text-dark">Grupo Mariposa</strong>
+                <strong
+                    className={
+                        variant === "light" ? "font-semibold text-white" : "font-semibold text-dark"
+                    }
+                >
+                    Grupo Mariposa
+                </strong>
             </span>
         </span>
     );

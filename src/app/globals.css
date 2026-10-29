@@ -132,6 +132,14 @@
         color: #9ca3af;
     }
 
+    .kicker--light {
+        color: rgb(255 255 255 / 0.75);
+    }
+
+    .kicker--light::before {
+        background: rgb(255 255 255 / 0.55);
+    }
+
     .kicker::before {
         content: "";
         width: 1.5rem;
@@ -163,6 +171,14 @@
     @media (min-width: 1024px) {
         .hero-title {
             font-size: clamp(3.25rem, 5.3vw, 4.25rem);
+        }
+    }
+
+    /* Pantallas bajas (iPhone SE y similares): el titular baja un punto para
+       que el hero quepa completo y la cinta de marcas quede a la vista. */
+    @media (max-height: 720px) and (max-width: 767px) {
+        .hero-title {
+            font-size: clamp(1.75rem, 8.6vw, 2.75rem);
         }
     }
 
@@ -202,6 +218,27 @@
         transform: translateY(-5px);
         border-color: var(--color-brand-light);
         box-shadow: 0 22px 44px -24px rgb(17 17 17 / 0.25);
+    }
+}
+
+/* Entradas del hero y zoom lento de la fotografía de fondo */
+@keyframes hero-in {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 22px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes hero-zoom {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.07);
     }
 }
 

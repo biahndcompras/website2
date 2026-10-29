@@ -22,6 +22,7 @@ const LINKS: { href: string; key: CopyKey; page: string }[] = [
  * #1C3565 y el icono en #4A88FA, los dos colores de marca.
  */
 export const LOGO_SRC = "/bia-main-white.png";
+export const LOGO_SRC_LIGHT = "/bia-logo-light.png";
 
 /** Proporción del archivo original, para no deformarlo. */
 const LOGO_RATIO = 3687 / 927;
@@ -29,10 +30,13 @@ const LOGO_RATIO = 3687 / 927;
 export function Logo({
     className = "",
     height = 26,
+    light = false,
 }: {
     className?: string;
     /** Alto en píxeles; el ancho sale de la proporción del archivo. */
     height?: number;
+    /** Versión con el texto en blanco para fondos oscuros. */
+    light?: boolean;
 }) {
     const width = Math.round(height * LOGO_RATIO);
 
@@ -41,7 +45,7 @@ export function Logo({
         // atributos, el navegador usa el tamaño real del archivo optimizado
         // (p. ej. 128px en lugar de los 103px pedidos).
         <Image
-            src={LOGO_SRC}
+            src={light ? LOGO_SRC_LIGHT : LOGO_SRC}
             alt="bia Honduras"
             width={width}
             height={height}
@@ -58,19 +62,23 @@ export function Logo({
  * Ambos botones miden lo mismo y el fondo activo es una "píldora" que se
  * desliza con transform: cambiar de idioma no mueve nada del layout.
  */
-function LanguageSwitch() {
+function LanguageSwitch({ light = false }: { light?: boolean }) {
     const { lang, setLang } = useLang();
     const active = lang === "es" ? 0 : 1;
 
     return (
         <div
-            className="relative flex items-center rounded-full bg-gray-100 p-1"
+            className={`relative flex items-center rounded-full p-1 ${
+                light ? "bg-white/15 backdrop-blur-sm" : "bg-gray-100"
+            }`}
             role="group"
             aria-label="Idioma"
         >
             <span
                 aria-hidden="true"
-                className="absolute top-1 bottom-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-brand transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                className={`absolute top-1 bottom-1 left-1 w-[calc(50%-0.25rem)] rounded-full transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    light ? "bg-white" : "bg-brand"
+                }`}
                 style={{ transform: `translateX(${active * 100}%)` }}
             />
 
@@ -81,7 +89,13 @@ function LanguageSwitch() {
                     onClick={() => setLang(code)}
                     aria-pressed={lang === code}
                     className={`relative z-10 w-11 rounded-full py-1.5 text-xs font-bold transition-colors ${
-                        lang === code ? "text-white" : "text-gray-500 hover:text-dark"
+                        lang === code
+                            ? light
+                                ? "text-brand-dark"
+                                : "text-white"
+                            : light
+                              ? "text-white/70 hover:text-white"
+                              : "text-gray-500 hover:text-dark"
                     }`}
                 >
                     {code.toUpperCase()}
@@ -95,12 +109,29 @@ export default function Navbar({ current }: { current?: string }) {
     const { t } = useLang();
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
+    /** El hero ocupa toda la pantalla: la barra va transparente sobre él. */
+    const [onHero, setOnHero] = useState(false);
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 40);
         onScroll();
         window.addEventListener("scroll", onScroll, { passive: true });
         return () => window.removeEventListener("scroll", onScroll);
+    }, []);
+
+    // Solo en páginas con hero a pantalla completa (la portada). Se observa el
+    // hero con un margen superior igual al alto de la barra para que el cambio
+    // ocurra justo cuando el contenido empieza a pasar por debajo.
+    useEffect(() => {
+        const hero = document.getElementById("hero");
+        if (!hero) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => setOnHero(entry.isIntersecting),
+            { rootMargin: "-72px 0px 0px 0px", threshold: 0 },
+        );
+        observer.observe(hero);
+        return () => observer.disconnect();
     }, []);
 
     // El menú móvil se cierra al pasar a escritorio
@@ -118,13 +149,23 @@ export default function Navbar({ current }: { current?: string }) {
             }`}
         >
             <div className="shell">
-                <nav className="flex items-center justify-between gap-4 rounded-full border border-gray-200/60 bg-white/75 py-2.5 pl-5 pr-3 shadow-sm backdrop-blur-md transition-all xs:py-3 xs:pr-4">
+                <nav
+                    className={`flex items-center justify-between gap-4 rounded-full border py-2.5 pl-5 pr-3 transition-all duration-300 xs:py-3 xs:pr-4 ${
+                        onHero
+                            ? "border-white/15 bg-white/10 shadow-lg shadow-black/10 backdrop-blur-md"
+                            : "border-gray-200/60 bg-white/75 shadow-sm backdrop-blur-md"
+                    }`}
+                >
                     <Link href="/" className="group shrink-0" aria-label="bia Honduras — Inicio">
-                        <Logo />
+                        <Logo light={onHero} />
                     </Link>
 
                     {/* Enlaces de escritorio */}
-                    <ul className="hidden items-center gap-8 text-sm font-medium text-gray-700 lg:flex">
+                    <ul
+                        className={`hidden items-center gap-8 text-sm font-medium lg:flex ${
+                            onHero ? "text-white/85" : "text-gray-700"
+                        }`}
+                    >
                         {LINKS.map((link) => {
                             const active = link.page === current;
                             return (
@@ -132,10 +173,16 @@ export default function Navbar({ current }: { current?: string }) {
                                     <Link
                                         href={link.href}
                                         aria-current={active ? "page" : undefined}
-                                        className={`relative py-1 transition-colors hover:text-brand ${
-                                            active ? "text-brand" : ""
-                                        } after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-right after:scale-x-0 after:rounded-full after:bg-brand after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 ${
-                                            active ? "after:origin-left after:scale-x-100" : ""
+                                        className={`relative py-1 transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-right after:scale-x-0 after:rounded-full after:transition-transform after:duration-300 hover:after:origin-left hover:after:scale-x-100 ${
+                                            onHero
+                                                ? "hover:text-white after:bg-white"
+                                                : "hover:text-brand after:bg-brand"
+                                        } ${
+                                            active
+                                                ? onHero
+                                                    ? "text-white after:origin-left after:scale-x-100"
+                                                    : "text-brand after:origin-left after:scale-x-100"
+                                                : ""
                                         }`}
                                     >
                                         {t(link.key)}
@@ -147,12 +194,16 @@ export default function Navbar({ current }: { current?: string }) {
 
                     <div className="flex items-center gap-2 xs:gap-3">
                         <div className="hidden sm:block">
-                            <LanguageSwitch />
+                            <LanguageSwitch light={onHero} />
                         </div>
 
                         <Link
                             href="/reclutamiento#vacantes"
-                            className="btn hidden w-[7.75rem] items-center justify-center gap-2 rounded-full bg-brand py-2.5 text-sm font-semibold text-white shadow-md hover:bg-brand-dark hover:shadow-lg sm:inline-flex"
+                            className={`btn hidden w-[7.75rem] items-center justify-center gap-2 rounded-full py-2.5 text-sm font-semibold shadow-md transition-colors sm:inline-flex ${
+                                onHero
+                                    ? "bg-white text-brand-dark hover:bg-crema"
+                                    : "bg-brand text-white hover:bg-brand-dark"
+                            }`}
                         >
                             {t("nav.vacantes")}
                             <svg
@@ -177,7 +228,11 @@ export default function Navbar({ current }: { current?: string }) {
                             aria-expanded={open}
                             aria-controls="mobile-menu"
                             aria-label={open ? t("a11y.cerrarMenu") : t("a11y.menu")}
-                            className="grid h-10 w-10 place-items-center rounded-full bg-gray-100 text-dark lg:hidden"
+                            className={`grid h-10 w-10 place-items-center rounded-full transition-colors lg:hidden ${
+                                onHero
+                                    ? "bg-white/15 text-white backdrop-blur-sm"
+                                    : "bg-gray-100 text-dark"
+                            }`}
                         >
                             <svg
                                 className="h-5 w-5"
