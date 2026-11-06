@@ -23,7 +23,7 @@ export function BrandHero({ brand }: { brand: Brand }) {
     const { t } = useLang();
 
     return (
-        <section className="bg-dots px-4 pb-16 pt-32 xs:px-6 xs:pt-36 lg:pt-44 md:pb-20">
+        <section className="bg-white px-4 pb-16 pt-32 xs:px-6 xs:pt-36 lg:pt-44 md:pb-20">
             <div className="shell grid grid-cols-1 items-stretch gap-10 lg:grid-cols-12 lg:gap-14">
                 <Reveal from="left" className="flex flex-col justify-center lg:col-span-6">
                     <nav

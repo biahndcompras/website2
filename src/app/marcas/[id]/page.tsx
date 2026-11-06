@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
 import { BrandHero } from "@/components/sections/BrandHero";
 import { BrandProfile, OtherBrands } from "@/components/sections/BrandProfile";
+import { BrandBrewing, BrandGallery, BrandPresentations } from "@/components/sections/BrandSections";
 import { BRANDS } from "@/data/brands";
 
 type Props = { params: Promise<{ id: string }> };
@@ -39,6 +40,9 @@ export default async function BrandPage({ params }: Props) {
             <main id="main">
                 <BrandHero brand={brand} />
                 <BrandProfile brand={brand} />
+                <BrandGallery brand={brand} />
+                <BrandPresentations brand={brand} />
+                <BrandBrewing />
                 <OtherBrands current={brand.id} />
             </main>
 

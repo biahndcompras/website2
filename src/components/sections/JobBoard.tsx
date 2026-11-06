@@ -20,6 +20,124 @@ const FILTERS: { value: Filter; key: CopyKey }[] = [
     { value: "people", key: "vacantes.filtroPeople" },
 ];
 
+/**
+ * Tarjeta de carrera.
+ *
+ * Ocupa la primera columna de las vacantes destacadas. Al pasar el cursor el
+ * degradado se desplaza, la tarjeta se eleva y los cuatro beneficios entran
+ * escalonados; en móvil (sin hover) se ven desde el principio.
+ */
+function CareerCard({ className = "" }: { className?: string }) {
+    const { pick } = useLang();
+
+    const beneficios = [
+        {
+            icon: "M4 19h16M4 19V7l8-4 8 4v12M9 19v-6h6v6",
+            text: { es: "Oportunidades de liderazgo", en: "Leadership opportunities" },
+        },
+        {
+            icon: "M4 19h16M6 17V7a2 2 0 012-2h8a2 2 0 012 2v10",
+            text: {
+                es: "Formación con Universidad Apex",
+                en: "Training with Universidad Apex",
+            },
+        },
+        {
+            icon: "M12 3l7 4v5c0 4.5-3 8.4-7 9-4-.6-7-4.5-7-9V7l7-4z",
+            text: { es: "Cobertura médica integral", en: "Comprehensive medical cover" },
+        },
+        {
+            icon: "M12 3l8 4v6c0 5-3.5 8-8 8s-8-3-8-8V7l8-4zM9 12l2 2 4-4",
+            text: {
+                es: "Seguridad y bienestar en el trabajo",
+                en: "Safety and wellbeing at work",
+            },
+        },
+    ];
+
+    return (
+        <Link
+            href="/reclutamiento#vacantes"
+            className={`group/career relative flex flex-col justify-between overflow-hidden rounded-[2rem] bg-[#0B1B33] p-8 text-white shadow-xl shadow-brand/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand/25 xs:p-10 ${className}`}
+        >
+            {/* Degradado animado + retícula de puntos */}
+            <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(135deg,#1C3565_0%,#0B1B33_45%,#4A88FA_140%)] bg-[length:200%_200%] bg-left transition-[background-position] duration-700 group-hover/career:bg-right"
+            />
+            <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-dots-brand opacity-40"
+            />
+            <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand/30 blur-3xl transition-opacity duration-700 group-hover/career:opacity-80"
+            />
+
+            <div className="relative z-10">
+                <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-brand-light" />
+                    {pick({ es: "Tu carrera", en: "Your career" })}
+                </p>
+
+                <h3 className="mb-4 text-2xl font-medium leading-tight xs:text-3xl">
+                    {pick({
+                        es: "Construye tu carrera en bia Honduras",
+                        en: "Build your career at bia Honduras",
+                    })}
+                </h3>
+
+                <p className="mb-7 text-sm leading-relaxed text-white/70">
+                    {pick({
+                        es: "Ofrecemos oportunidades de liderazgo, formación especializada mediante Universidad Apex, cobertura médica integral y un entorno enfocado en la seguridad y el bienestar.",
+                        en: "We offer leadership opportunities, specialised training through Universidad Apex, comprehensive medical cover and an environment focused on safety and wellbeing.",
+                    })}
+                </p>
+
+                <ul className="space-y-3">
+                    {beneficios.map((b, i) => (
+                        <li
+                            key={b.text.es}
+                            style={{ transitionDelay: `${i * 70}ms` }}
+                            className="flex items-center gap-3 text-sm text-white/85 opacity-100 transition-all duration-500 md:translate-x-0 md:opacity-70 md:group-hover/career:translate-x-1 md:group-hover/career:opacity-100"
+                        >
+                            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/10 text-brand-light transition-transform duration-500 md:group-hover/career:scale-110">
+                                <svg
+                                    className="h-4 w-4"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.8"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path d={b.icon} />
+                                </svg>
+                            </span>
+                            {pick(b.text)}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <span className="relative z-10 mt-8 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                {pick({ es: "Ver todas las vacantes", en: "See all openings" })}
+                <svg
+                    className="h-4 w-4 transition-transform duration-300 group-hover/career:translate-x-1.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path strokeLinecap="round" d="M14 5l7 7-7 7" />
+                </svg>
+            </span>
+        </Link>
+    );
+}
+
 type Props = {
     /** Si se activa, solo muestra las vacantes destacadas. */
     featuredOnly?: boolean;
@@ -35,7 +153,9 @@ export default function JobBoard({ featuredOnly = false }: Props) {
     const [filter, setFilter] = useState<Filter>("todos");
 
     const jobs = JOBS.filter((j) => (featuredOnly ? j.featured : true));
-    const visible = jobs.filter((j) => filter === "todos" || j.area === filter);
+    const visibles = jobs.filter((j) => filter === "todos" || j.area === filter);
+    // En la portada se muestran cuatro: la tarjeta de carrera ocupa el resto.
+    const visible = featuredOnly ? visibles.slice(0, 4) : visibles;
 
     return (
         <section id="vacantes" className="bg-white px-4 py-20 xs:px-6 md:py-28">
@@ -86,6 +206,8 @@ export default function JobBoard({ featuredOnly = false }: Props) {
                     stagger={0.07}
                     className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
                 >
+                    {featuredOnly && <CareerCard className="sm:col-span-2 lg:col-span-1 lg:row-span-2" />}
+
                     {visible.map((job) => (
                         <article
                             key={job.id}

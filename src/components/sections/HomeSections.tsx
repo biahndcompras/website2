@@ -34,10 +34,42 @@ const PILLARS: {
     desc: CopyKey;
     foot: CopyKey;
     icon: "pin" | "layers" | "people";
+    img: string;
+    alt: { es: string; en: string };
 }[] = [
-    { key: "cultura.p1.titulo", desc: "cultura.p1.desc", foot: "cultura.p1.pie", icon: "pin" },
-    { key: "cultura.p2.titulo", desc: "cultura.p2.desc", foot: "cultura.p2.pie", icon: "layers" },
-    { key: "cultura.p3.titulo", desc: "cultura.p3.desc", foot: "cultura.p3.pie", icon: "people" },
+    {
+        key: "cultura.p1.titulo",
+        desc: "cultura.p1.desc",
+        foot: "cultura.p1.pie",
+        icon: "pin",
+        img: "/hero-planta.jpg",
+        alt: {
+            es: "Equipo de bia Honduras en la planta de empaque",
+            en: "bia Honduras team at the packaging plant",
+        },
+    },
+    {
+        key: "cultura.p2.titulo",
+        desc: "cultura.p2.desc",
+        foot: "cultura.p2.pie",
+        icon: "layers",
+        img: "/crecimiento.jpg",
+        alt: {
+            es: "Colaboradores de bia Honduras en una sesión de formación",
+            en: "bia Honduras team members in a training session",
+        },
+    },
+    {
+        key: "cultura.p3.titulo",
+        desc: "cultura.p3.desc",
+        foot: "cultura.p3.pie",
+        icon: "people",
+        img: "/cultura-cercana.jpg",
+        alt: {
+            es: "Colaboradores de bia Honduras compartiendo en planta",
+            en: "bia Honduras team members together at the plant",
+        },
+    },
 ];
 
 const PILLAR_ICON = {
@@ -60,7 +92,7 @@ const PILLAR_ICON = {
 };
 
 export function Culture() {
-    const { t } = useLang();
+    const { t, pick } = useLang();
 
     return (
         <section id="cultura" className="bg-surface px-4 py-20 xs:px-6 md:py-28">
@@ -88,8 +120,8 @@ export function Culture() {
                         >
                             <div className="relative h-52 overflow-hidden">
                                 <Image
-                                    src="/hero-planta.jpg"
-                                    alt={t("cultura.imagenAlt")}
+                                    src={pillar.img}
+                                    alt={pick(pillar.alt)}
                                     fill
                                     sizes="(min-width: 768px) 33vw, 100vw"
                                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -172,7 +204,7 @@ const OPS: {
 }[] = [
     {
         num: "01",
-        img: "/ops-planta.svg",
+        img: "/operaciones-planta.jpg",
         key: "operaciones.b1.titulo",
         desc: "operaciones.b1.desc",
         flip: false,
@@ -181,7 +213,7 @@ const OPS: {
     },
     {
         num: "02",
-        img: "/ops-calidad.svg",
+        img: "/operaciones-calidad.jpg",
         key: "operaciones.b2.titulo",
         desc: "operaciones.b2.desc",
         flip: true,
@@ -194,7 +226,7 @@ const OPS: {
     },
     {
         num: "03",
-        img: "/ops-cafetal.svg",
+        img: "/cafetal.jpg",
         key: "operaciones.b3.titulo",
         desc: "operaciones.b3.desc",
         flip: false,
@@ -244,7 +276,7 @@ export function Operations() {
                                 alt=""
                                 width={1200}
                                 height={800}
-                                unoptimized
+                                unoptimized={op.img.endsWith(".svg")}
                                 sizes="(min-width: 1024px) 50vw, 100vw"
                                 className="h-full w-full object-cover lg:h-auto"
                             />

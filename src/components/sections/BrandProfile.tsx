@@ -5,9 +5,8 @@ import Link from "next/link";
 
 import { useLang } from "@/components/layout/LanguageProvider";
 import { Reveal } from "@/components/motion/Reveal";
-import { useApply } from "@/components/ui/ApplyProvider";
 import { BRANDS, altitudePosition } from "@/data/brands";
-import { NOTE_COLORS, jobsForBrand } from "@/data/jobs";
+import { NOTE_COLORS } from "@/data/jobs";
 import type { CopyKey } from "@/data/copy";
 import type { Brand } from "@/data/types";
 
@@ -183,7 +182,6 @@ export function BrandProfile({ brand }: { brand: Brand }) {
 /** Las otras tres marcas, con acceso directo a su ficha. */
 export function OtherBrands({ current }: { current: string }) {
     const { t, pick } = useLang();
-    const { open } = useApply();
     const others = BRANDS.filter((b) => b.id !== current);
     const brand = BRANDS.find((b) => b.id === current)!;
 
@@ -213,60 +211,44 @@ export function OtherBrands({ current }: { current: string }) {
                 </Reveal>
 
                 <div className="grid grid-cols-1 gap-6 xs:grid-cols-3">
-                    {others.map((b) => {
-                        const jobs = jobsForBrand(b.id);
-                        return (
-                            <Reveal
-                                key={b.id}
-                                className="card-hover group flex items-center gap-4 rounded-[2rem] border border-gray-100 bg-white p-7"
+                    {others.map((b) => (
+                        <Reveal key={b.id}>
+                            {/* Toda la tarjeta lleva a la ficha de esa marca */}
+                            <Link
+                                href={`/marcas/${b.id}`}
+                                aria-label={`Ver ${b.name}`}
+                                className="card-hover group flex h-full items-center gap-4 rounded-[2rem] border border-gray-100 bg-white p-7"
                             >
-                                <Link href={`/marcas/${b.id}`} className="flex flex-1 items-center gap-4">
-                                    <Image
-                                        src={b.logo}
-                                        alt={`Logo ${b.name}`}
-                                        width={b.logoSize.width}
-                                        height={b.logoSize.height}
-                                        className="h-14 w-14 shrink-0 rounded-full object-cover shadow-sm ring-2 ring-white"
-                                    />
-                                    <div className="min-w-0">
-                                        <div className="font-semibold transition-colors group-hover:text-brand">
-                                            {b.name}
-                                        </div>
-                                        <div className="text-xs text-gray-500">
-                                            {pick(b.tagline)}
-                                        </div>
-                                        {jobs.length > 0 && (
-                                            <div className="mt-1 text-[0.6875rem] font-semibold text-brand">
-                                                {jobs.length}{" "}
-                                                {jobs.length === 1
-                                                    ? "vacante"
-                                                    : "vacantes"}
-                                            </div>
-                                        )}
+                                <Image
+                                    src={b.logo}
+                                    alt={`Logo ${b.name}`}
+                                    width={b.logoSize.width}
+                                    height={b.logoSize.height}
+                                    className="h-14 w-14 shrink-0 rounded-full object-cover shadow-sm ring-2 ring-white"
+                                />
+                                <div className="min-w-0 flex-1">
+                                    <div className="font-semibold transition-colors group-hover:text-brand">
+                                        {b.name}
                                     </div>
-                                </Link>
-                                {jobs.length > 0 && (
-                                    <button
-                                        type="button"
-                                        onClick={() => open(jobs[0].id)}
-                                        aria-label={`Postular — ${jobs[0].title.es}`}
-                                        className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-light text-brand transition-colors hover:bg-brand hover:text-white"
+                                    <div className="text-xs text-gray-500">
+                                        {pick(b.tagline)}
+                                    </div>
+                                </div>
+                                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-light text-brand transition-all group-hover:bg-brand group-hover:text-white">
+                                    <svg
+                                        className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
                                     >
-                                        <svg
-                                            className="h-4 w-4"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            viewBox="0 0 24 24"
-                                            aria-hidden="true"
-                                        >
-                                            <path strokeLinecap="round" d="M14 5l7 7-7 7" />
-                                        </svg>
-                                    </button>
-                                )}
-                            </Reveal>
-                        );
-                    })}
+                                        <path strokeLinecap="round" d="M14 5l7 7-7 7" />
+                                    </svg>
+                                </span>
+                            </Link>
+                        </Reveal>
+                    ))}
                 </div>
             </div>
         </section>

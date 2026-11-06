@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import BrandExplorer from "@/components/sections/BrandExplorer";
-import { Momentos, NuestraHistoria, Pilares } from "@/components/sections/NosotrosSections";
+import { Momentos, NuestraHistoria } from "@/components/sections/NosotrosSections";
 import { Prensa } from "@/components/sections/Prensa";
 import StatsBar, { type StatItem } from "@/components/sections/StatsBar";
 import { Timeline } from "@/components/sections/Timeline";
@@ -23,12 +23,12 @@ export const STATS: StatItem[] = [
 
 /* ------------------------------------------------------------------ Hero */
 function Hero() {
-    const { t } = useLang();
+    const { t, pick } = useLang();
 
     return (
-        <section className="bg-dots px-4 pb-16 pt-32 xs:px-6 xs:pt-40 md:pb-24">
+        <section className="bg-white px-4 pb-16 pt-32 xs:px-6 xs:pt-40 md:pb-24">
             <div className="shell grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-                <Reveal className="lg:col-span-7">
+                <Reveal className="lg:col-span-6">
                     <p className="kicker mb-5">{t("nav.nosotros")}</p>
                     <h1 className="hero-title mb-6">
                         <span className="block">{t("nosotros.h1a")}</span>
@@ -56,22 +56,27 @@ function Hero() {
                     </div>
                 </Reveal>
 
-                <Reveal from="right" className="lg:col-span-5">
-                    <figure className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-100 shadow-2xl shadow-brand/10">
+                <Reveal from="right" className="lg:col-span-6">
+                    <figure className="relative aspect-[16/10] overflow-hidden rounded-[2rem] border border-gray-100 shadow-2xl shadow-brand/10">
                         <Image
-                            src="/cafeoro.jpg"
+                            src="/nosotros-hero.jpg"
                             alt={t("nosotros.heroImagenAlt")}
                             fill
                             priority
-                            sizes="(min-width: 1024px) 40vw, 100vw"
+                            sizes="(min-width: 1024px) 48vw, 100vw"
                             className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <figcaption className="absolute bottom-5 left-5 right-5 text-white">
                             <div className="mb-1 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-white/70">
-                                {t("hero.imagenEtiqueta")}
+                                {pick({ es: "Nuestro equipo", en: "Our team" })}
                             </div>
-                            <div className="text-sm font-semibold">{t("hero.ubicacion")}</div>
+                            <div className="text-sm font-semibold">
+                                {pick({
+                                    es: "San Pedro Sula · Tegucigalpa",
+                                    en: "San Pedro Sula · Tegucigalpa",
+                                })}
+                            </div>
                         </figcaption>
                     </figure>
                 </Reveal>
@@ -128,19 +133,19 @@ function Historia() {
 /* --------------------------------------------------------------- Centros */
 const CENTROS: { img: string; label: string; key: CopyKey; desc: CopyKey }[] = [
     {
-        img: "/ops-planta.svg",
+        img: "/operaciones-planta.jpg",
         label: "San Pedro Sula · Cortés",
         key: "operaciones.b1.titulo",
         desc: "operaciones.b1.desc",
     },
     {
-        img: "/ops-calidad.svg",
+        img: "/operaciones-calidad.jpg",
         label: "Todos los centros",
         key: "operaciones.b2.titulo",
         desc: "operaciones.b2.desc",
     },
     {
-        img: "/ops-cafetal.svg",
+        img: "/cafetal.jpg",
         label: "Comunidades cafetaleras",
         key: "operaciones.b3.titulo",
         desc: "operaciones.b3.desc",
@@ -207,7 +212,7 @@ function Centros() {
                                     src={c.img}
                                     alt=""
                                     fill
-                                    unoptimized
+                                    unoptimized={c.img.endsWith(".svg")}
                                     sizes="(min-width: 768px) 33vw, 100vw"
                                     className="object-cover transition-transform duration-700 group-hover/card:scale-105"
                                 />
@@ -277,11 +282,10 @@ export default function Nosotros() {
         <>
             <Hero />
             <NuestraHistoria />
-            <StatsBar items={STATS} />
+            <StatsBar items={STATS} variant="light" />
             <Historia />
             <BrandExplorer />
             <Momentos />
-            <Pilares />
             <Centros />
             <Prensa />
             <GrupoMariposa />

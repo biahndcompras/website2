@@ -169,7 +169,7 @@ function Hero() {
     const { t, pick } = useLang();
 
     return (
-        <section className="bg-dots px-4 pb-14 pt-32 xs:px-6 xs:pt-40 md:pb-20">
+        <section className="bg-white px-4 pb-14 pt-32 xs:px-6 xs:pt-40 md:pb-20">
             <div className="shell grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
                 <Reveal className="lg:col-span-7">
                     <p className="kicker mb-5">{t("nav.reclutamiento")}</p>

@@ -14,6 +14,18 @@ export type Brand = {
     logoSize: { width: number; height: number };
     /** Fotografía del encabezado de la ficha de marca. */
     hero: string;
+    /**
+     * Fotografías propias para la galería de la ficha. Si falta alguna, la
+     * galería usa las imágenes genéricas del sitio.
+     */
+    gallery?: {
+        packshot?: string;
+        field?: string;
+        plant?: string;
+        growers?: string;
+    };
+    /** Presentaciones reales de la marca (foto + nombre del producto). */
+    products?: { img: string; name: string }[];
     name: string;
     since: number;
     tagline: I18nText;

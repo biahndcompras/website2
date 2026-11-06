@@ -205,13 +205,13 @@ export const COPY = {
         "cultura.p1.desc":
             "Somos una empresa hondureña: sentir orgullo nacional, tradición cafetera en el origen del grano y en el hogar de cada familia.",
         "cultura.p1.pie": "Orgullo que se siente en casa",
-        "cultura.p2.titulo": "Crescimiento y Desarrollo",
+        "cultura.p2.titulo": "Crecimiento y Desarrollo",
         "cultura.p2.desc":
             'Respaldados por la Universidad Apex: “Creemos en tu desarrollo, creemos en ti”. Programas de formación, certificaciones y itinerarios de carrera dentro de la empresa.',
         "cultura.p2.pie": "“Creemos en tu desarrollo, creemos en ti”",
-        "cultura.p3.titulo": "Cultura Cercana",
+        "cultura.p3.titulo": "Cultura Organizacional",
         "cultura.p3.desc":
-            "Entornos abiertos, meritocracia clara, seguro médico y bienestar integral. Aquí tu opinión cuenta y tu esfuerzo se ve.",
+            "Espacios, beneficios y reconocimiento que cuidan de nuestra gente.",
         "cultura.p3.pie": "Meritocracia con trato humano",
         "cultura.beneficios": "Beneficios que importan",
         "cultura.beneficio1": "Seguro médico privado para ti y tu familia.",
@@ -241,16 +241,16 @@ export const COPY = {
         "operaciones.titulo": "De la planta a la taza, con",
         "operaciones.tituloItalic": "estándares de exportación",
         "operaciones.subtitulo":
-            "Infraestructura y compromiso que sostienen a las cuatro marcas en todo el país.",
+            "Nuestras instalaciones combinan tecnología industrial avanzada, rigurosos estándares de calidad y el compromiso de más de 500 colaboradores en Honduras.",
         "operaciones.b1.titulo": "Planta de Producción & Logística",
         "operaciones.b1.desc":
-            "San Pedro Sula, Cortés. Del café verde al empaque, con líneas de proceso y centros de distribución que llegan a todo el país.",
+            "Líneas de tostado y empaque con tecnología de punta y estrictos protocolos de inocuidad y de seguridad.",
         "operaciones.b2.titulo": "Estándares de Calidad Mundial",
         "operaciones.b2.desc":
-            "Laboratorio sensorial, catas formales y barismo Q-Grader. Cada lote se evalúa antes de salir de planta.",
+            "Monitoreo continuo de cada lote que garantiza el sabor característico de Café Maya, El Indio, Oro y Medalla.",
         "operaciones.b3.titulo": "El Orgullo del Café Hondureño",
         "operaciones.b3.desc":
-            "Vínculo directo con las comunidades cafetaleras: compramos, apoyamos y crecer juntos con los productores de café de Honduras.",
+            "Cercanía y alianzas sostenibles con caficultores locales para llevar el fruto de nuestra tierra a cada hogar.",
         "operaciones.b1.puntos": "Producción · Tostado · Empaque",
         "operaciones.b3.pie": "Del productor a la taza, sin intermediarios.",
 
@@ -508,9 +508,9 @@ export const COPY = {
         "cultura.p2.desc":
             "Backed by Universidad Apex: “We believe in your development, we believe in you.” Training programs, certifications and in-company career paths.",
         "cultura.p2.pie": "“We believe in your development, we believe in you”",
-        "cultura.p3.titulo": "Close-Knit Culture",
+        "cultura.p3.titulo": "Organizational Culture",
         "cultura.p3.desc":
-            "Open environments, clear meritocracy, private health insurance and overall wellbeing. Here your opinion counts and your effort is seen.",
+            "Spaces, benefits and recognition that take care of our people.",
         "cultura.p3.pie": "Meritocracy with a human touch",
         "cultura.beneficios": "Benefits that matter",
         "cultura.beneficio1": "Private health insurance for you and your family.",
@@ -540,16 +540,16 @@ export const COPY = {
         "operaciones.titulo": "From plant to cup, with",
         "operaciones.tituloItalic": "export standards",
         "operaciones.subtitulo":
-            "Infrastructure and commitment that sustain the four brands across the country.",
+            "Our facilities combine advanced industrial technology, rigorous quality standards and the commitment of more than 500 team members in Honduras.",
         "operaciones.b1.titulo": "Production & Logistics Plant",
         "operaciones.b1.desc":
-            "San Pedro Sula, Cortés. From green coffee to packaging, with processing lines and distribution centers reaching the whole country.",
+            "Roasting and packaging lines with state-of-the-art technology and strict food-safety and security protocols.",
         "operaciones.b2.titulo": "World-Class Quality Standards",
         "operaciones.b2.desc":
-            "Sensory laboratory, formal cupping and Q-Grader baristas. Every batch is evaluated before leaving the plant.",
+            "Continuous monitoring of every batch that guarantees the signature flavor of Café Maya, El Indio, Oro and Medalla.",
         "operaciones.b3.titulo": "The Pride of Honduran Coffee",
         "operaciones.b3.desc":
-            "A direct bond with coffee-growing communities: we buy, we support and we grow together with Honduras' coffee producers.",
+            "Close, sustainable partnerships with local coffee growers that bring the fruit of our land to every home.",
         "operaciones.b1.puntos": "Production · Roasting · Packaging",
         "operaciones.b3.pie": "From the grower to the cup, no middlemen.",
 

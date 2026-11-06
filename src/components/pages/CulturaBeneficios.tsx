@@ -17,6 +17,7 @@ const PILARES: {
     bullets: string[];
     dot: string;
     icon: "pin" | "layers" | "people";
+    img: string;
 }[] = [
     {
         key: "cultura.p1.titulo",
@@ -28,6 +29,7 @@ const PILARES: {
         ],
         dot: "bg-cafe",
         icon: "pin",
+        img: "/hero-planta.jpg",
     },
     {
         key: "cultura.p2.titulo",
@@ -39,6 +41,7 @@ const PILARES: {
         ],
         dot: "bg-brand",
         icon: "layers",
+        img: "/crecimiento.jpg",
     },
     {
         key: "cultura.p3.titulo",
@@ -50,6 +53,7 @@ const PILARES: {
         ],
         dot: "bg-green-600",
         icon: "people",
+        img: "/cultura-cercana.jpg",
     },
 ];
 
@@ -162,7 +166,7 @@ function Hero() {
     const { t } = useLang();
 
     return (
-        <section className="bg-dots px-4 pb-16 pt-32 xs:px-6 xs:pt-40 md:pb-20">
+        <section className="bg-white px-4 pb-16 pt-32 xs:px-6 xs:pt-40 md:pb-20">
             <div className="mx-auto max-w-4xl text-center">
                 <Reveal>
                     <p className="kicker mb-5 justify-center">{t("cultura.kicker")}</p>
@@ -196,7 +200,7 @@ function Pilares() {
                     >
                         <div className="relative h-60 overflow-hidden">
                             <Image
-                                src="/hero-planta.jpg"
+                                src={p.img}
                                 alt={t("cultura.imagenAlt")}
                                 fill
                                 sizes="(min-width: 768px) 33vw, 100vw"

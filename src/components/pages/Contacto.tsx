@@ -80,7 +80,7 @@ function Hero() {
     const { t } = useLang();
 
     return (
-        <section className="bg-dots px-4 pb-14 pt-32 xs:px-6 xs:pt-40">
+        <section className="bg-white px-4 pb-14 pt-32 xs:px-6 xs:pt-40">
             <div className="shell text-center">
                 <Reveal>
                     <p className="kicker mb-5 justify-center">{t("nav.contacto")}</p>

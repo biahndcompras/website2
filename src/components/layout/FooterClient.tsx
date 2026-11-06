@@ -79,12 +79,6 @@ export default function FooterClient({ year }: FooterClientProps) {
                                         />
                                     </svg>
                                 </Link>
-                                <Link
-                                    href="/contacto"
-                                    className="btn-ghost inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-7 py-4 text-base font-semibold text-white hover:bg-white/10"
-                                >
-                                    {t("cta.botonSecundario")}
-                                </Link>
                             </div>
                         </div>
 

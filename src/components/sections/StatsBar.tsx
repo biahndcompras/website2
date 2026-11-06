@@ -82,25 +82,49 @@ export type StatItem = {
  * Franja de métricas: bloque azul de marca con el ancho del contenedor.
  * Se sitúa después de las vacantes destacadas.
  */
-export default function StatsBar({ items }: { items: StatItem[] }) {
+export default function StatsBar({
+    items,
+    variant = "brand",
+}: {
+    items: StatItem[];
+    /** `brand` es la franja azul; `light` la deja en blanco. */
+    variant?: "brand" | "light";
+}) {
     const { t } = useLang();
+    const claro = variant === "light";
 
     return (
-        <section className="px-4 pb-4 xs:px-6 xs:pb-6">
+        <section className={`px-4 pb-4 xs:px-6 xs:pb-6 ${variant === "light" ? "bg-white" : ""}`}>
             <Reveal
                 from="scale"
-                className="shell relative overflow-hidden rounded-[2rem] bg-brand bg-dots-brand px-6 py-10 shadow-2xl shadow-brand/20 md:rounded-[2.5rem] md:py-14 xs:px-10"
+                className={`shell relative overflow-hidden rounded-[2rem] px-6 py-10 md:rounded-[2.5rem] md:py-14 xs:px-10 ${
+                    claro
+                        ? "border border-gray-100 bg-white shadow-xl shadow-black/5"
+                        : "bg-brand bg-dots-brand shadow-2xl shadow-brand/20"
+                }`}
             >
-                {/* Acento cálido de café que suaviza el bloque azul */}
-                <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-cafe/25 blur-3xl" />
-                <div className="pointer-events-none absolute -bottom-28 -left-20 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
+                {claro ? (
+                    <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand/5 blur-3xl" />
+                ) : (
+                    <>
+                        {/* Acento cálido de café que suaviza el bloque azul */}
+                        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-cafe/25 blur-3xl" />
+                        <div className="pointer-events-none absolute -bottom-28 -left-20 h-80 w-80 rounded-full bg-white/10 blur-3xl" />
+                    </>
+                )}
 
                 <dl className="relative z-10 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4">
                     {items.map((item) => (
                         <div key={item.key} className="text-center lg:text-left">
                             <dd
                                 className={`stat-value mb-2 text-4xl font-medium xs:text-5xl ${
-                                    item.tone === "crema" ? "text-crema" : "text-white"
+                                    claro
+                                        ? item.tone === "crema"
+                                            ? "text-cafe"
+                                            : "text-brand"
+                                        : item.tone === "crema"
+                                          ? "text-crema"
+                                          : "text-white"
                                 }`}
                             >
                                 <Counter
@@ -109,7 +133,11 @@ export default function StatsBar({ items }: { items: StatItem[] }) {
                                     suffix={item.suffix}
                                 />
                             </dd>
-                            <dt className="text-xs font-medium text-white/75 xs:text-sm">
+                            <dt
+                                className={`text-xs font-medium xs:text-sm ${
+                                    claro ? "text-gray-500" : "text-white/75"
+                                }`}
+                            >
                                 {t(item.key)}
                             </dt>
                         </div>
